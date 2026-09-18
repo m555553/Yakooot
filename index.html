@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أحمد ياقوت للتصوير السينمائي - نظام الإدارة الآمن</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #d4af37;
+            --bg-color: #0d0d0d;
+            --card-bg: rgba(20, 20, 20, 0.95);
+            --text-color: #f1f1f1;
+            --danger-color: #ff4d4d;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)), 
+                              url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1600&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 12px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 18px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            font-size: 1.6rem;
+            margin-bottom: 4px;
+        }
+
+        header p {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        #alertBox {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.2), rgba(255, 77, 77, 0.2));
+            border: 1px solid var(--warning-color);
+            border-radius: 10px;
+            padding: 12px 15px;
+            margin-bottom: 18px;
+            display: none;
+        }
+
+        #alertBox h3 {
+            color: var(--warning-color);
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+        }
+
+        #alertBox p {
+            font-size: 0.85rem;
+            color: #eee;
+            margin: 2px 0;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        .nav-tabs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .nav-tabs label.special-booking-btn {
+            grid-column: span 2;
+            background: linear-gradient(135deg, #b8860b, var(--primary-color));
+            color: #000;
+            font-weight: 700;
+            font-size: 1rem;
+            border: 2px solid #fff;
+            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);
+        }
+
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #bbb;
+            padding: 12px 8px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-align: center;
+            display: block;
+            transition: 0.2s;
+        }
+
+        .section-content {
+            display: none;
+        }
+
+        #tab1:checked ~ .container-content #bookingsTab,
+        #tab2:checked ~ .container-content #crewTab,
+        #tab3:checked ~ .container-content #equipmentTab {
+            display: block;
+        }
+
+        #tab1:checked ~ .nav-tabs label[for="tab1"] {
+            background: #fff !important;
+            color: #000 !important;
+            border-color: var(--primary-color);
+        }
+
+        #tab2:checked ~ .nav-tabs label[for="tab2"],
+        #tab3:checked ~ .nav-tabs label[for="tab3"] {
+            background: var(--primary-color);
+            color: #000;
+            border-color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .card h2 {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 0.85rem;
+            color: #ddd;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 11px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .form-control option {
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        .btn {
+            background: var(--primary-color);
+            color: #000;
+            border: none;
+            padding: 12px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 8px;
+        }
+
+        .backup-btn {
+            background: #28a745;
+            color: #fff;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .stat-box {
+            background: var(--card-bg);
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .stat-box h3 {
+            font-size: 0.75rem;
+            color: #aaa;
+            margin-bottom: 4px;
+        }
+
+        .stat-box .number {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .item-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 4px solid var(--primary-color);
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 110px;
+        }
+
+        .item-card h4 {
+            color: #fff;
+            font-size: 0.95rem;
+            margin-bottom: 3px;
+        }
+
+        .item-card p {
+            font-size: 0.8rem;
+            color: #bbb;
+            margin: 2px 0;
+        }
+
+        .action-btns {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            gap: 4px;
+        }
+
+        .delete-btn {
+            background: rgba(255, 77, 77, 0.2);
+            color: var(--danger-color);
+            border: none;
+            padding: 4px 7px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+        }
+
+        .edit-btn {
+            background: rgba(255, 193, 7, 0.2);
+            color: var(--warning-color);
+            border: none;
+            padding: 4px 7px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>أحمد ياقوت</h1>
+            <p>للتصوير السينمائي والحفلات - نظام الإدارة الآمن</p>
+        </header>
+
+        <input type="radio" name="slider" id="tab1" checked>
+        <input type="radio" name="slider" id="tab2">
+        <input type="radio" name="slider" id="tab3">
+
+        <div class="nav-tabs">
+            <label for="tab1" class="tab-btn special-booking-btn">⭐ قسم الحجوزات والعملاء (الرئيسي)</label>
+            <label for="tab2" class="tab-btn">طاقم العمل</label>
+            <label for="tab3" class="tab-btn">المعدات</label>
+        </div>
+
+        <div class="container-content">
+            <!-- قسم الحجوزات -->
+            <div id="bookingsTab" class="section-content">
+                
+                <div id="alertBox">
+                    <h3>⏰ تنبيه المواعيد القريبة!</h3>
+                    <div id="alertContent"></div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <h3>إجمالي الحجوزات</h3>
+                        <div class="number" id="totalBookings">0</div>
+                    </div>
+                    <div class="stat-box">
+                        <h3>المبالغ المتبقية</h3>
+                        <div class="number" id="totalRemaining">0 ج.م</div>
+                    </div>
+                </div>
+
+                <!-- أزرار حماية البيانات النسخ والاصطحاب -->
+                <div class="card" style="padding: 12px; text-align: center;">
+                    <p style="font-size: 0.8rem; color: #aaa; margin-bottom: 8px;">حماية إضافية للبيانات (اختياري للأمان التام):</p>
+                    <button type="button" class="btn backup-btn" style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;" onclick="exportBackup()">📥 تحميل نسخة احتياطية للملفات</button>
+                    <input type="file" id="importFile" style="display:none" onchange="importBackup(event)">
+                    <button type="button" class="btn" style="background: #17a2b8; color:#fff; padding: 8px; font-size: 0.85rem; margin-bottom: 0;" onclick="document.getElementById('importFile').click()">📂 استرجاع النسخة الاحتياطية</button>
+                </div>
+
+                <div class="card">
+                    <h2 id="bookingFormTitle">تسجيل حجز جديد</h2>
+                    <div id="bookingForm">
+                        <input type="hidden" id="bookingEditIndex" value="-1">
+                        <div class="form-group">
+                            <label>اسم العميل</label>
+                            <input type="text" id="clientName" class="form-control" placeholder="مثال: محمد أحمد">
+                        </div>
+                        <div class="form-group">
+                            <label>نوع المناسبة</label>
+                            <select id="eventType" class="form-control">
+                                <option value="حفل زفاف">حفل زفاف (فرح)</option>
+                                <option value="خطوبة">خطوبة</option>
+                                <option value="جلسة تصوير (Session)">جلسة تصوير (Session)</option>
+                                <option value="مناسبة أخرى">مناسبة أخرى</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>تاريخ المناسبة</label>
+                            <input type="date" id="eventDate" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>المصور المسؤول</label>
+                            <input type="text" id="assignedCrew" class="form-control" placeholder="اكتب اسم المصور">
+                        </div>
+                        <div class="form-group">
+                            <label>الكاميرا / المعدة المحجوزة</label>
+                            <input type="text" id="assignedEquipment" class="form-control" placeholder="اكتب اسم المعدة أو الكاميرا">
+                        </div>
+                        <div class="form-group">
+                            <label>مكان القاعة / الاستوديو</label>
+                            <input type="text" id="eventLocation" class="form-control" placeholder="اسم القاعة والعنوان">
+                        </div>
+                        <div class="form-group">
+                            <label>إجمالي المبلغ (ج.م)</label>
+                            <input type="number" id="totalPrice" class="form-control" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label>العربون المدفوع (ج.م)</label>
+                            <input type="number" id="paidAmount" class="form-control" placeholder="0">
+                        </div>
+                        <button type="button" class="btn" id="bookingSubmitBtn" onclick="saveBookingManual()">حفظ الحجز الآن</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>الحجوزات المسجلة</h2>
+                    <div id="bookingsList">
+                        <p style="text-align: center; color: #777;">لا توجد حجوزات مسجلة.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم طاقم العمل -->
+            <div id="crewTab" class="section-content">
+                <div class="card">
+                    <h2 id="crewFormTitle">إضافة عضو فريق جديد</h2>
+                    <div id="crewForm">
+                        <input type="hidden" id="crewEditIndex" value="-1">
+                        <div class="form-group">
+                            <label>اسم الشخص</label>
+                            <input type="text" id="crewName" class="form-control" placeholder="اسم المصور أو المساعد">
+                        </div>
+                        <div class="form-group">
+                            <label>التخصص / الوظيفة</label>
+                            <input type="text" id="crewRole" class="form-control" placeholder="مثال: مصور فيديو">
+                        </div>
+                        <div class="form-group">
+                            <label>رقم الهاتف</label>
+                            <input type="text" id="crewPhone" class="form-control" placeholder="رقم الموبايل">
+                        </div>
+                        <button type="button" class="btn" id="crewSubmitBtn" onclick="saveCrewManual()">إضافة للعضوية</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>قائمة طاقم العمل</h2>
+                    <div id="crewList"></div>
+                </div>
+            </div>
+
+            <!-- قسم المعدات -->
+            <div id="equipmentTab" class="section-content">
+                <div class="card">
+                    <h2>إضافة معدة لجرد المكتب</h2>
+                    <div id="equipmentForm">
+                        <div class="form-group">
+                            <label>اسم المعدة / الكاميرا</label>
+                            <input type="text" id="eqName" class="form-control" placeholder="مثال: كاميرا Sony FX3">
+                        </div>
+                        <div class="form-group">
+                            <label>الرقم السلسلي (Serial)</label>
+                            <input type="text" id="eqSerial" class="form-control" placeholder="رقم السيريال">
+                        </div>
+                        <div class="form-group">
+                            <label>حالة المعدة</label>
+                            <select id="eqStatus" class="form-control">
+                                <option value="متاحة في المكتب">متاحة في المكتب</option>
+                                <option value="خارجة في حجز (مؤجرة)">خارجة في حجز (مؤجرة)</option>
+                                <option value="تحت الصيانة">تحت الصيانة</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn" onclick="saveEquipmentManual()">إضافة المعدة</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>جرد معدات التصوير</h2>
+                    <div id="equipmentList">
+                        <p style="text-align: center; color: #777;">لا توجد معدات مسجلة.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function safeGet(key, fallback) {
+            try {
+                var item = localStorage.getItem(key);
+                if (item) {
+                    return JSON.parse(item);
+                }
+                var backupItem = localStorage.getItem(key + '_backup_emergency');
+                if (backupItem) {
+                    var parsedBackup = JSON.parse(backupItem);
+                    localStorage.setItem(key, JSON.stringify(parsedBackup));
+                    return parsedBackup;
+                }
+                return fallback;
+            } catch (e) {
+                return fallback;
+            }
+        }
+
+        function safeSet(key, data) {
+            try {
+                var stringData = JSON.stringify(data);
+                localStorage.setItem(key, stringData);
+                localStorage.setItem(key + '_backup_emergency', stringData);
+                return true;
+            } catch (e) {
+                alert('خطأ في الحفظ: ' + e.message);
+                return false;
+            }
+        }
+
+        var crew = safeGet('yaqout_crew', [
+            { name: "يوسف أحمد", role: "مصور سينمائي / فيديو", phone: "-" }
+        ]);
+        var bookings = safeGet('yaqout_bookings', []);
+        var equipment = safeGet('yaqout_equipment', []);
+
+        function exportBackup() {
+            try {
+                var allData = {
+                    crew: crew,
+                    bookings: bookings,
+                    equipment: equipment,
+                    date: new Date().toISOString()
+                };
+                var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(allData));
+                var downloadAnchor = document.createElement('a');
+                downloadAnchor.setAttribute("href", dataStr);
+                downloadAnchor.setAttribute("download", "Yaqout_Backup_" + new Date().toISOString().split('T')[0] + ".json");
+                document.body.appendChild(downloadAnchor);
+                downloadAnchor.click();
+                downloadAnchor.remove();
+                alert('تم حفظ نسخة احتياطية لملفاتك بنجاح على التليفون!');
+            } catch(e) {
+                alert('عذراً، حدث خطأ أثناء التصدير: ' + e.message);
+            }
+        }
+
+        function importBackup(event) {
+            var file = event.target.files[0];
+            if (!file) return;
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    var imported = JSON.parse(e.target.result);
+                    if (imported.bookings && imported.crew && imported.equipment) {
+                        crew = imported.crew;
+                        bookings = imported.bookings;
+                        equipment = imported.equipment;
+                        
+                        safeSet('yaqout_crew', crew);
+                        safeSet('yaqout_bookings', bookings);
+                        safeSet('yaqout_equipment', equipment);
+                        
+                        renderAll();
+                        alert('تم استرجاع كافة الحجوزات والبيانات بنجاح تام!');
+                    } else {
+                        alert('ملف النسخة الاحتياطية غير صالح!');
+                    }
+                } catch (err) {
+                    alert('خطأ في قراءة الملف.');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function checkUpcomingEvents() {
+            var alertBox = document.getElementById('alertBox');
+            var alertContent = document.getElementById('alertContent');
+            alertContent.innerHTML = '';
+            
+            var todayStr = new Date().toISOString().split('T')[0];
+            
+            var tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            var tomorrowStr = tomorrow.toISOString().split('T')[0];
+
+            var urgentBookings = [];
+
+            for (var i = 0; i < bookings.length; i++) {
+                if (bookings[i].eventDate ===
