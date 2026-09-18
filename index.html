@@ -9,8 +9,8 @@
     <style>
         :root {
             --primary-color: #d4af37;
-            --bg-color: #0d0d0d;
-            --card-bg: rgba(20, 20, 20, 0.95);
+            --bg-color: #0b0b0f;
+            --card-bg: rgba(15, 15, 20, 0.88);
             --text-color: #f1f1f1;
             --danger-color: #ff4d4d;
             --success-color: #28a745;
@@ -26,8 +26,8 @@
 
         body {
             background-color: var(--bg-color);
-            background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)), 
-                              url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1600&auto=format&fit=crop');
+            background-image: linear-gradient(rgba(10, 10, 15, 0.82), rgba(10, 10, 15, 0.94)), 
+                              url('https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=1600&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -46,28 +46,32 @@
             margin-bottom: 20px;
             padding: 18px;
             background: var(--card-bg);
+            backdrop-filter: blur(8px);
             border-radius: 12px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
         }
 
         header h1 {
             color: var(--primary-color);
             font-size: 1.6rem;
             margin-bottom: 4px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
         header p {
-            color: #aaa;
+            color: #ccc;
             font-size: 0.9rem;
         }
 
         #alertBox {
-            background: linear-gradient(135deg, rgba(255, 193, 7, 0.2), rgba(255, 77, 77, 0.2));
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.25), rgba(255, 77, 77, 0.25));
             border: 1px solid var(--warning-color);
             border-radius: 10px;
             padding: 12px 15px;
             margin-bottom: 18px;
             display: none;
+            backdrop-filter: blur(5px);
         }
 
         #alertBox h3 {
@@ -100,13 +104,14 @@
             font-weight: 700;
             font-size: 1rem;
             border: 2px solid #fff;
-            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
         }
 
         .tab-btn {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(30, 30, 40, 0.7);
+            backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            color: #bbb;
+            color: #ccc;
             padding: 12px 8px;
             border-radius: 10px;
             cursor: pointer;
@@ -143,10 +148,12 @@
 
         .card {
             background: var(--card-bg);
+            backdrop-filter: blur(10px);
             border-radius: 12px;
             padding: 18px;
             margin-bottom: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
         }
 
         .card h2 {
@@ -171,16 +178,22 @@
         .form-control {
             width: 100%;
             padding: 11px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(10, 10, 15, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 8px;
             color: #fff;
             font-size: 0.95rem;
             outline: none;
+            transition: 0.2s;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
         }
 
         .form-control option {
-            background: #1a1a1a;
+            background: #15151f;
             color: #fff;
         }
 
@@ -195,11 +208,18 @@
             cursor: pointer;
             width: 100%;
             margin-bottom: 8px;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+            transition: 0.2s;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
         }
 
         .backup-btn {
             background: #28a745;
             color: #fff;
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
         }
 
         .stats-grid {
@@ -211,10 +231,12 @@
 
         .stat-box {
             background: var(--card-bg);
+            backdrop-filter: blur(8px);
             padding: 12px;
             border-radius: 10px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
         .stat-box h3 {
@@ -230,13 +252,14 @@
         }
 
         .item-card {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(20, 20, 30, 0.6);
             border-left: 4px solid var(--primary-color);
             padding: 12px;
             border-radius: 6px;
             margin-bottom: 10px;
             position: relative;
             padding-left: 110px;
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
 
         .item-card h4 {
@@ -247,7 +270,7 @@
 
         .item-card p {
             font-size: 0.8rem;
-            color: #bbb;
+            color: #ccc;
             margin: 2px 0;
         }
 
@@ -260,9 +283,9 @@
         }
 
         .delete-btn {
-            background: rgba(255, 77, 77, 0.2);
+            background: rgba(255, 77, 77, 0.25);
             color: var(--danger-color);
-            border: none;
+            border: 1px solid rgba(255, 77, 77, 0.3);
             padding: 4px 7px;
             border-radius: 4px;
             cursor: pointer;
@@ -270,9 +293,9 @@
         }
 
         .edit-btn {
-            background: rgba(255, 193, 7, 0.2);
+            background: rgba(255, 193, 7, 0.25);
             color: var(--warning-color);
-            border: none;
+            border: 1px solid rgba(255, 193, 7, 0.3);
             padding: 4px 7px;
             border-radius: 4px;
             cursor: pointer;
@@ -320,7 +343,7 @@
 
                 <!-- أزرار حماية البيانات النسخ والاصطحاب -->
                 <div class="card" style="padding: 12px; text-align: center;">
-                    <p style="font-size: 0.8rem; color: #aaa; margin-bottom: 8px;">حماية إضافية للبيانات (اختياري للأمان التام):</p>
+                    <p style="font-size: 0.8rem; color: #ccc; margin-bottom: 8px;">حماية إضافية للبيانات (اختياري للأمان التام):</p>
                     <button type="button" class="btn backup-btn" style="padding: 8px; font-size: 0.85rem; margin-bottom: 5px;" onclick="exportBackup()">📥 تحميل نسخة احتياطية للملفات</button>
                     <input type="file" id="importFile" style="display:none" onchange="importBackup(event)">
                     <button type="button" class="btn" style="background: #17a2b8; color:#fff; padding: 8px; font-size: 0.85rem; margin-bottom: 0;" onclick="document.getElementById('importFile').click()">📂 استرجاع النسخة الاحتياطية</button>
@@ -331,7 +354,7 @@
                     <div id="bookingForm">
                         <input type="hidden" id="bookingEditIndex" value="-1">
                         <div class="form-group">
-                            <label>اسم العميل</label>
+                            <label>اسم العميل *</label>
                             <input type="text" id="clientName" class="form-control" placeholder="مثال: محمد أحمد">
                         </div>
                         <div class="form-group">
@@ -344,7 +367,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>تاريخ المناسبة</label>
+                            <label>تاريخ المناسبة *</label>
                             <input type="date" id="eventDate" class="form-control">
                         </div>
                         <div class="form-group">
@@ -360,7 +383,7 @@
                             <input type="text" id="eventLocation" class="form-control" placeholder="اسم القاعة والعنوان">
                         </div>
                         <div class="form-group">
-                            <label>إجمالي المبلغ (ج.م)</label>
+                            <label>إجمالي المبلغ (ج.م) *</label>
                             <input type="number" id="totalPrice" class="form-control" placeholder="0">
                         </div>
                         <div class="form-group">
@@ -374,7 +397,7 @@
                 <div class="card">
                     <h2>الحجوزات المسجلة</h2>
                     <div id="bookingsList">
-                        <p style="text-align: center; color: #777;">لا توجد حجوزات مسجلة.</p>
+                        <p style="text-align: center; color: #888;">لا توجد حجوزات مسجلة.</p>
                     </div>
                 </div>
             </div>
@@ -435,7 +458,7 @@
                 <div class="card">
                     <h2>جرد معدات التصوير</h2>
                     <div id="equipmentList">
-                        <p style="text-align: center; color: #777;">لا توجد معدات مسجلة.</p>
+                        <p style="text-align: center; color: #888;">لا توجد معدات مسجلة.</p>
                     </div>
                 </div>
             </div>
@@ -517,29 +540,4 @@
                         safeSet('yaqout_equipment', equipment);
                         
                         renderAll();
-                        alert('تم استرجاع كافة الحجوزات والبيانات بنجاح تام!');
-                    } else {
-                        alert('ملف النسخة الاحتياطية غير صالح!');
-                    }
-                } catch (err) {
-                    alert('خطأ في قراءة الملف.');
-                }
-            };
-            reader.readAsText(file);
-        }
-
-        function checkUpcomingEvents() {
-            var alertBox = document.getElementById('alertBox');
-            var alertContent = document.getElementById('alertContent');
-            alertContent.innerHTML = '';
-            
-            var todayStr = new Date().toISOString().split('T')[0];
-            
-            var tomorrow = new Date();
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            var tomorrowStr = tomorrow.toISOString().split('T')[0];
-
-            var urgentBookings = [];
-
-            for (var i = 0; i < bookings.length; i++) {
-                if (bookings[i].eventDate ===
+                        alert('تم استرجاع كافة 
